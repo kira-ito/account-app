@@ -34,7 +34,7 @@ router.post('/income/add', async (req, res) => {
     }
     // JSONに書き込む
     const data = JSON.stringify(incomeData).toString()
-    await fs.writeFile(`${__dirname}/../file/income/${incomeData.id}.json`, data)
+    await fs.writeFile(`${__dirname}/../tmp/income/${incomeData.id}.json`, data)
     res.status(201).json({ messsage: '成功しました' })
 })
 // 月の入金額を更新
@@ -48,14 +48,14 @@ router.put('/income/update/:id', async (req, res, next) => {
     recievedDate && (incomeData.recievedDate = recievedDate)
 
     const data = JSON.stringify(incomeData).toString()
-    await fs.writeFile(`${__dirname}/../file/income/${filename}.json`, data)
+    await fs.writeFile(`${__dirname}/../tmp/income/${filename}.json`, data)
 
     res.status(200).json({ messsage: '更新されました' })
 })
 // 月の入金額を削除
 router.delete('/income/delete/:id', async (req, res, next) => {
     const filename = req.params.id
-    await fs.unlink(`${__dirname}/../file/income/${filename}.json`)
+    await fs.unlink(`${__dirname}/../tmp/income/${filename}.json`)
     res.status(200).json({ messsage: '削除されました' })
 })
 // 入金額の合計を取得（月の入金額の合計値）
@@ -96,7 +96,7 @@ router.post('/spending/add', async (req, res) => {
     }
     // JSONに書き込む
     const data = JSON.stringify(spendingData).toString()
-    await fs.writeFile(`${__dirname}/../file/spending/${spendingData.id}.json`, data)
+    await fs.writeFile(`${__dirname}/../tmp/spending/${spendingData.id}.json`, data)
     res.status(201).json({ messsage: '成功しました' })
 })
 // 月の支出額を更新
@@ -110,14 +110,14 @@ router.put('/spending/update/:id', async (req, res, next) => {
     recievedDate && (spendData.recievedDate = recievedDate)
 
     const data = JSON.stringify(spendData).toString()
-    await fs.writeFile(`${__dirname}/../file/spending/${filename}.json`, data)
+    await fs.writeFile(`${__dirname}/../tmp/spending/${filename}.json`, data)
 
     res.status(200).json({ messsage: '更新されました' })
 })
 // 月の支出額を削除
 router.delete('/spending/delete/:id', async (req, res, next) => {
     const filename = req.params.id
-    await fs.unlink(`${__dirname}/../file/spending/${filename}.json`)
+    await fs.unlink(`${__dirname}/../tmp/spending/${filename}.json`)
     res.status(200).json({ messsage: '削除されました' })
 })
 // 支出額の合計を取得（月の支出額の合計額）
